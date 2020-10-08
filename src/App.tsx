@@ -30,7 +30,7 @@ class App extends React.Component {
         localStorage.setItem("our-state", JSON.stringify(this.state))
     };
 
-   // восстановление state из localStorage
+    // восстановление state из localStorage
     restoreState = (): void => {
         let stateAsString = localStorage.getItem("our-state");
         if (stateAsString) {
@@ -43,20 +43,18 @@ class App extends React.Component {
         this.restoreState();
     }
 
-    // функция по дабавлению новой задачи
-    addNewTask = () => {
-        const newTask = prompt('Введите название задачи')
-        if (newTask === "" || newTask ===  null){
-            prompt('Введите название задачи')
-        } else {
+    addNewTask = (task: string) => {
+        if (task) {
             this.setState({
                 tasksTodo: [...this.state.tasksTodo, {
                     id: (Math.random()).toFixed(4),
-                    taskName: newTask
+                    taskName: task
                 }]
             }, (): void => {
                 this.saveState()
             })
+        } else {
+            alert('Введено пустое значение')
         }
     }
 
